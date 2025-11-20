@@ -1,0 +1,9 @@
+.cityContainer{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#changeCity:hover{
+    cursor: pointer;
+}
