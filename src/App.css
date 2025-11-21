@@ -6,4 +6,12 @@ body, #root{
 .app-container{
   min-height: 100vh;
   background: linear-gradient(180deg, #7db8e6 75%, #a7d5f7 100%);
+  justify-content: center;
+  display: flex;
+  padding-top: 30px;
+}
+
+.forcast-container{
+  min-width: 55vw;
+  padding: 15px
 }

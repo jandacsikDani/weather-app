@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.container > div:first-of-type{
+    font-size: x-small;
+    margin-bottom: 15px;
+}
+
+.forecast-container > div{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 15px;
+}

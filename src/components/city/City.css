@@ -2,8 +2,20 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
+    max-width: 200px;
 }
 
-#changeCity:hover{
+
+#temperature{
+    font-size: xx-large;
+}
+#cityName{
+    font-size: smaller;
     cursor: pointer;
+}
+#weatherState{
+    font-size: small;
+} 
+#minsmax{
+    font-size: small;
 }

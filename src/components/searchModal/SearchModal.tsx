@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { City } from "../../models/City";
 
 type ModalProps = {
-    onClose: () => void;
+    onClose: (city: City | null) => void;
 }
 
 type ApiCity = {
@@ -46,9 +46,14 @@ function SearchModal({ onClose }: ModalProps){
         }
     }
 
+    function chooseCity(city: City){
+        localStorage.setItem("selectedCity", JSON.stringify(city));
+        onClose(city);
+    }
+
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-overlay" onClick={() => onClose(null)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="searchBox">
                     <h2>Város keresése</h2>
@@ -60,7 +65,7 @@ function SearchModal({ onClose }: ModalProps){
                     <h2>Keresés eredménye</h2>
                     {city && city.length > 0 ? (
                         city.map((c: City) => (
-                            <div className="cityCard">{c.name} - {c.country}</div>
+                            <div className="cityCard" onClick={() => chooseCity(c)}>{c.name} - {c.country}</div>
                         ))
                     ) : (
                         <p>Nincs találat</p>
