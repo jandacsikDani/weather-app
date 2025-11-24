@@ -12,7 +12,7 @@ function Chart({city}: Props){
     const [weather, setWeather] = useState<weatherChart | null>(null);
 
     useEffect(() => {
-        if(!weather) return;
+        if(!city) return;
         async function fetchWeather(){
             const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city?.latitude}&longitude=${city?.longitude}&daily=temperature_2m_max&forecast_days=8`);
             const data = await response.json();
@@ -38,7 +38,7 @@ function Chart({city}: Props){
                 <XAxis dataKey="day" stroke="white"/>
                 <YAxis unit="°C" stroke="white"/>
                 <Tooltip/>
-                <Line type="monotone" dataKey="maxTemp" stroke="#ff7300" strokeWidth={2}/>
+                <Line type="monotone" name="Maximum hőmérséklet" dataKey="maxTemp" stroke="#ff7300" strokeWidth={2}/>
             </LineChart>
         </ResponsiveContainer>
     );

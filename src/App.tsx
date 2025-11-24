@@ -19,6 +19,7 @@ function App() {
   function handleClose(city: CityType | null){
     setCity(city);
     setIsModalOpen(false);
+    console.log(city);
   }
 
 
@@ -33,8 +34,11 @@ function App() {
           </div>
         </div>
         <div className='forcast-container'>
-          <Forecast city={city}></Forecast>
-          <Chart city={city}></Chart>
+          <div>
+            <Forecast city={city}></Forecast>
+            <Chart city={city}></Chart>
+          </div>
+          <div id='creatorName'>Jandácsik Dániel</div>
         </div>
       </div>
     </>

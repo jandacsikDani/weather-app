@@ -7,6 +7,7 @@
     align-items: center;
     animation: fadeIn 0.2s ease;
     color: black;
+    z-index: 999;
 }
 
 .modal-content {
@@ -43,6 +44,10 @@
     width: 75px;
 }
 
+.hide{
+    display: none;
+}
+
 .cityCard{
     margin: 10px;
     padding: 5px;
@@ -61,4 +66,12 @@
 @keyframes scaleIn {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 600px){
+    .modal-content{
+        flex-direction: column;
+    }
+
+
 }

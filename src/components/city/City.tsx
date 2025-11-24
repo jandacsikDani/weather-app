@@ -22,7 +22,7 @@ function City({city, onOpenModal}: Props){
     
 
     useEffect(() => {
-        if(!currentWeather) return;
+        if(!city) return;
         async function fetchWeather() {
             const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city?.latitude}&longitude=${city?.longitude}&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,weather_code&forecast_days=1`);
             const data = await response.json();

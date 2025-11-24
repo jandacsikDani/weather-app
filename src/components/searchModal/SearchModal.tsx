@@ -27,6 +27,12 @@ function SearchModal({ onClose }: ModalProps){
         setCityName(e.target.value);
     };
 
+    document.getElementById("nameInput")?.addEventListener("keydown", function(e) {
+                if(e.key === "Enter"){
+                    searchCity();
+                }
+            });
+
 
     async function searchCity(){
         const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}`);
@@ -40,6 +46,7 @@ function SearchModal({ onClose }: ModalProps){
                 timezone: c.timezone,
                 country: c.country
             }));
+            document.getElementsByClassName("resultBox")[0].classList.remove("hide");
             setCity(cityResults);
         }
         else{
@@ -59,10 +66,10 @@ function SearchModal({ onClose }: ModalProps){
                 <div className="searchBox">
                     <h2>Város keresése</h2>
                     <div>Név</div>
-                    <input type="text" value={cityName} onChange={handleInputChange}/>
+                    <input type="text" value={cityName} onChange={handleInputChange} id="nameInput"/>
                     <button className="btn" onClick={searchCity}>Keresés</button>
                 </div>
-                <div className="resultBox">
+                <div className="resultBox hide">
                     <h2>Keresés eredménye</h2>
                     {city && city.length > 0 ? (
                         city.map((c: City) => (

@@ -19,3 +19,9 @@
 #minsmax{
     font-size: small;
 }
+
+@media (max-width: 600px){
+    .cityContainer{
+        margin-inline-start: 15px;
+    }
+}
