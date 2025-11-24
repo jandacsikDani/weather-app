@@ -11,6 +11,7 @@ function Forecast({city}: Props){
     const [weatherForcast, setWeatherForcast] = useState<weatherForcast | null>(null);
 
     useEffect(() => {
+        if(!weatherForcast) return;
         async function fetchWeather(){
             const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city?.latitude}&longitude=${city?.longitude}&daily=precipitation_probability_mean,temperature_2m_max,temperature_2m_min,weather_code&forecast_days=8`);
             const data = await response.json();
@@ -24,7 +25,7 @@ function Forecast({city}: Props){
         <div className="container">
             <div>7 napos előrejelzés</div>
             <div className="forecast-container">
-                {weatherForcast?.daily.time.slice(1).map((dateString, index) => {
+                {weatherForcast?.daily.time?.slice(1).map((dateString, index) => {
                     const date = new Date(dateString);
                     const dayIndex = date.getDay();
                     const dayName = dayNames[dayIndex];

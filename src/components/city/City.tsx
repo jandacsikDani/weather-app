@@ -1,34 +1,30 @@
-import SearchModal from "../searchModal/SearchModal";
 import "./City.css";
 import { useEffect, useState } from "react";
 import type { City as CityType } from "../../models/City";
 import { weatherCodeMap, weatherIconMap, type currentWeather } from "../../models/Weather";
 
 type Props = {
-    setCity: (data: CityType | null) => void;
+    city: CityType | null;
+    onOpenModal: () => void;
 };
 
-function City({setCity}: Props){
-    const [isOpen, setIsOpen] = useState<boolean>(() => {
+function City({city, onOpenModal}: Props){
+    /*const [isOpen, setIsOpen] = useState<boolean>(() => {
         const saved = localStorage.getItem("selectedCity");
         return saved ? false : true;
     });
     const [selectedCity, setSelectedCity] = useState<CityType | null>(() => {
         const saved = localStorage.getItem("selectedCity");
         return saved ? JSON.parse(saved) : null;
-    });
+    });*/
     const [currentWeather, setCurrentWeather] = useState<currentWeather | null>(null);
 
-    function handleClose(city: CityType | null){
-        setSelectedCity(city);
-        setCity(city);
-        setIsOpen(false);
-    }
+    
 
     useEffect(() => {
-        if(!selectedCity) return;
+        if(!currentWeather) return;
         async function fetchWeather() {
-            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${selectedCity?.latitude}&longitude=${selectedCity?.longitude}&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,weather_code&forecast_days=1`);
+            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city?.latitude}&longitude=${city?.longitude}&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,weather_code&forecast_days=1`);
             const data = await response.json();
             setCurrentWeather(data);
 
@@ -44,14 +40,13 @@ function City({setCity}: Props){
             }*/
         }
         fetchWeather();
-    }, [selectedCity, setCity]);
+    }, [city]);
 
 
 return (
     <>
         <div className="cityContainer">
-            <div id="cityName" onClick={() => setIsOpen(true)}>{selectedCity ? selectedCity.name : "Város neve"}</div>
-            {isOpen && <SearchModal onClose={handleClose}/>}
+            <div id="cityName" onClick={onOpenModal}>{city ? city.name : "Város neve"}</div>
             <div id="temperature">{currentWeather?.current.temperature_2m !== null ? `${currentWeather?.current.temperature_2m} °C` : ""}</div>
             <div id="minsmax">{currentWeather?.daily.temperature_2m_max + "°C / " + currentWeather?.daily.temperature_2m_min + "°C"}</div>
             <div id="weatherState">{currentWeather?.current.weather_code !== undefined ? weatherCodeMap[currentWeather?.current.weather_code] + " " + weatherIconMap[currentWeather?.current.weather_code] : ""}</div>

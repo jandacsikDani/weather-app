@@ -15,3 +15,7 @@ body, #root{
   min-width: 55vw;
   padding: 15px
 }
+
+.search-container{
+  z-index: 999;
+}

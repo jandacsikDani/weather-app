@@ -31,6 +31,7 @@ function SearchModal({ onClose }: ModalProps){
     async function searchCity(){
         const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}`);
         const data: ApiResponse = await response.json();
+        console.log(data);
         if(data.results){
             const cityResults: City[] = data.results.map((c: ApiCity) => ({
                 name: c.name,

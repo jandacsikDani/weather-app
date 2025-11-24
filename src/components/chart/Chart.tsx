@@ -12,6 +12,7 @@ function Chart({city}: Props){
     const [weather, setWeather] = useState<weatherChart | null>(null);
 
     useEffect(() => {
+        if(!weather) return;
         async function fetchWeather(){
             const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city?.latitude}&longitude=${city?.longitude}&daily=temperature_2m_max&forecast_days=8`);
             const data = await response.json();

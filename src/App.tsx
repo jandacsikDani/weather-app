@@ -1,6 +1,7 @@
 import City from './components/city/City'
 import Forecast from './components/forecast/Forecast';
 import Chart from './components/chart/Chart';
+import SearchModal from './components/searchModal/SearchModal';
 import './App.css'
 import { useState } from 'react';
 import type { City as CityType } from './models/City';
@@ -10,6 +11,15 @@ function App() {
     const saved = localStorage.getItem("selectedCity");
     return saved ? JSON.parse(saved) : null;
   });
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(() => {
+    const saved = localStorage.getItem("selectedCity");
+    return saved ? false : true;
+  });
+
+  function handleClose(city: CityType | null){
+    setCity(city);
+    setIsModalOpen(false);
+  }
 
 
 
@@ -17,7 +27,10 @@ function App() {
     <>
       <div className='app-container'>
         <div>
-          <City setCity={setCity}></City>
+          <City city={city} onOpenModal={() => setIsModalOpen(true)}></City>
+            {isModalOpen && <SearchModal onClose={handleClose}/>}
+          <div className='search-container'>
+          </div>
         </div>
         <div className='forcast-container'>
           <Forecast city={city}></Forecast>
